@@ -1,0 +1,97 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "提供第三方发卷功能",
+    "version": "1.0.0",
+    "title": "第三方发卷",
+    "contact": {
+      "email": "huhuaiyong@guoshengtianfeng.com"
+    }
+  },
+  "host": "test.source3g.com",
+  "basePath": "/third",
+  "tags": [
+    {
+      "name": "发卷管理",
+      "description": "通过api_key的方式向第三方提供获取卷的接口"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/coupon/{cnt}": {
+      "get": {
+        "tags": [
+          "发卷管理"
+        ],
+        "summary": "根据参数获取一定数量的卷",
+        "description": "根据参数获取一定数量的卷，卷不足时返回错误信息",
+        "operationId": "addPet",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cnt",
+            "description": "卷的数量",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "maximum": 100,
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "服务器无异常时的返回",
+            "schema": {
+              "$ref": "#/definitions/ApiResult"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "ApiResult": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
